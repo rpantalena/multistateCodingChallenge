@@ -17,7 +17,7 @@ const strings: string[] = [
   'This is a hyperlink: www.google.com/',
   'This is an email: leeroy.jenkins@gmail.com',
   'This is a hyperlink: https://stackblitz.com/edit/typescript-ga18cd?devToolsHeight=50&file=index.html,index.ts,README.md,package.json',
-  'This is a hyperlink: https://github.com/rpantalena/multistateCodingChallenge',
+  'This is a hyperlink: https://stackblitz.com/edit/typescript-jn5gpg',
   'This is **bold** text and this is also **bold** text',
   'This is __underlined__ text and this is also __underlined__ text',
   'This is **bold** text and this is *italic* text',

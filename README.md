@@ -9,9 +9,7 @@ Types of markdown inputs:
 \_\_underlined\_\_,
 \~\~strikethrough\~\~,
 \*italic\*,
-valid email address,
-valid urls,
-\*\*\*bold and italic\*\*\*, and
-\*\*bold \_and\_ nested italic\*\*.
+valid email addresses, and
+valid urls.
 
 [Edit on StackBlitz ⚡️](https://stackblitz.com/edit/typescript-jn5gpg)
