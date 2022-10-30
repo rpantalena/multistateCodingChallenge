@@ -15,8 +15,19 @@ const strings: string[] = [
   'This is ~~strikethrough~~ text.',
   'This is *italic* text.',
   'This is a hyperlink: www.google.com/',
-  'This is an email: rjpantalena@gmail.com',
   'This is an email: leeroy.jenkins@gmail.com',
+  'This is a hyperlink: https://stackblitz.com/edit/typescript-ga18cd?devToolsHeight=50&file=index.html,index.ts,README.md,package.json',
+  'This is a hyperlink: https://github.com/rpantalena/multistateCodingChallenge',
+  'This is **bold** text and this is also **bold** text',
+  'This is __underlined__ text and this is also __underlined__ text',
+  'This is **bold** text and this is *italic* text',
+  'This is a bold hyperlink: **www.google.com/**',
+  'This is not **bold* or *italic** text.',
+  'This is not *bold** or **italic* text.',
+  '**This entire sentence is bold**',
+  '*This entire sentence is italic*',
+  'Only *this* *is** italic',
+  'This is not ~~ strikthrough~~ text by design',
 ];
 
 /**
@@ -25,11 +36,13 @@ const strings: string[] = [
  * @returns String converted to formatted html
  */
 const markdown = function (string: string): string {
-  // TODO: Implement your markdown function here
-  let newString = string.replace(/\*\*(.*)\*\*/g, '<b>$1</b>');
-  newString = newString.replace(/__(.*)__/g, '<u>$1</u>');
-  newString = newString.replace(/~~(.*)~~/g, '<s>$1</s>');
-  newString = newString.replace(/(?<!\*)\*{1}(\w+)\*{1}(?!\*)/g, '<i>$1</i>');
+  let newString = string.replace(/\*\*([^\s][^\*]*[^\s])\*\*/g, '<b>$1</b>');
+  newString = newString.replace(/__([^\s][^_]*[^\s])__/g, '<u>$1</u>');
+  newString = newString.replace(/~~([^\s][^~]*[^\s])~~/g, '<s>$1</s>');
+  newString = newString.replace(
+    /(?<!\*)\*([^\s\*][^\*]+[^\s\*])\*(?!\*)/g,
+    '<i>$1</i>'
+  );
   newString = newString.replace(
     /(?<!@[\w.\/:]*)((https?:\/\/)?(w+\.)?(?:[a-zA-z0-9-]*\.)+(com|net|org|edu|mil|uk|io)([\/]?[\w\-?=.,&%]*)*)/g,
     '<a href=$1>$1</a>'
@@ -50,8 +63,8 @@ strings.forEach((string) => {
 BONUS:
 Render the formatted html strings to index.html
 */
-for (let i = 0; i < strings.length; i++) {
-  let listElement = document.createElement('ul');
-  listElement.innerHTML = `${markdown(strings[i])}`;
-  document.getElementById('strings').appendChild(listElement);
-}
+strings.forEach((string) => {
+  let pElement = document.createElement('p');
+  pElement.innerHTML = `${markdown(string)}`;
+  document.getElementById('strings').appendChild(pElement);
+});
