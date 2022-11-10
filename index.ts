@@ -31,6 +31,7 @@ const strings: string[] = [
   'This is not ~~ strikthrough~~ text by design',
   'https://stackblitz.com/edit/typescript-ga18cd?devToolsHeight=50&file=index.html,index.ts,README.md,package.json',
   '*italic*',
+  'no*italic* here',
 ];
 
 /**
