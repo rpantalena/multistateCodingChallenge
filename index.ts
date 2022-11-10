@@ -29,6 +29,8 @@ const strings: string[] = [
   '*This entire sentence is italic*',
   'Only *this* *is** italic',
   'This is not ~~ strikthrough~~ text by design',
+  'https://stackblitz.com/edit/typescript-ga18cd?devToolsHeight=50&file=index.html,index.ts,README.md,package.json',
+  '*italic*',
 ];
 
 /**
@@ -40,14 +42,31 @@ const markdown = function (string: string): string {
   let newString = string.replace(/\*\*([^\s][^\*]*[^\s])\*\*/g, '<b>$1</b>');
   newString = newString.replace(/__([^\s][^_]*[^\s])__/g, '<u>$1</u>');
   newString = newString.replace(/~~([^\s][^~]*[^\s])~~/g, '<s>$1</s>');
+  //removed negative lookbehind for browser compatability
   newString = newString.replace(
-    /(?<!\*)\*([^\s\*][^\*]+[^\s\*])\*(?!\*)/g,
+    /[\s]\*([^\s\*][^\*]+[^\s\*])\*(?!\*)/g,
+    ' <i>$1</i>'
+  );
+  newString = newString.replace(
+    /^\*([^\s\*][^\*]+[^\s\*])\*(?!\*)/g,
     '<i>$1</i>'
   );
-  newString = newString.replace(
-    /(?<!@[\w.\/:]*)((https?:\/\/)?(w+\.)?(?:[a-zA-z0-9-]*\.)+(com|net|org|edu|mil|uk|io)([\/]?[\w\-?=.,&%]*)*)/g,
-    '<a href=$1>$1</a>'
+  //removed negative lookbehind for browser compatability
+  let found = newString.match(
+    /^((https?:\/\/)?(w+\.)?(?:[a-zA-z0-9-]*\.)+(com|net|org|edu|mil|uk|io)([\/]?[\w\-?=.,&%]*)*)/g
   );
+  if (found !== null) {
+    newString = newString.replace(
+      /^((https?:\/\/)?(w+\.)?(?:[a-zA-z0-9-]*\.)+(com|net|org|edu|mil|uk|io)([\/]?[\w\-?=.,&%]*)*)/g,
+      '<a href=$1>$1</a>'
+    );
+  } else {
+    newString = newString.replace(
+      /[^\@\w]((https?:\/\/)?(w+\.)?(?:[a-zA-z0-9-]*\.)+(com|net|org|edu|mil|uk|io)([\/]?[\w\-?=.,&%]*)*)/g,
+      ' <a href=$1>$1</a>'
+    );
+  }
+
   newString = newString.replace(
     /([\w#!%$‘&+\*–\/=?^`{|}~][\w#!%$‘&+\*–\/=?^`\.{|}~]{0,63}@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]+)/g,
     '<a href="mailto:"$1>$1</a>'
